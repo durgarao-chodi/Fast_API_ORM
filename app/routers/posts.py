@@ -19,7 +19,7 @@ async def get_posts(db:Session=Depends(get_db),current_user:str=Depends(oauth.ge
     print(posts)
     return posts
 
-@router.post("/",response_model=schemas.Posts)
+@router.post("/",status_code=status.HTTP_201_CREATED,response_model=schemas.Posts)
 async def create_posts(post:schemas.CreatePosts,db:Session=Depends(get_db),current_user:str=Depends(oauth.get_current_user)):
     
     new_post=models.Posts(owner_id=current_user.id,**post.dict())

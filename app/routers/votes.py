@@ -3,7 +3,7 @@ from fastapi import Depends, status,HTTPException,APIRouter
 from sqlalchemy.orm import Session
 
 router=APIRouter(
-    prefix="/votes",
+    prefix="/vote",
     tags=['Votes']
 )
 
