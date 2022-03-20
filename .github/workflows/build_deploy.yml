@@ -40,7 +40,7 @@ jobs:
       - name: update pip 
         run: python -m pip install --upgrade pip
       - name: install all Dependencies
-        run: pip install -r requirements.py
+        run: pip install -r requirements.txt
       - name: test with pytest
         run: |
           pip install pytest
