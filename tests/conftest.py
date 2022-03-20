@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 from app.config import setting
 from sqlalchemy.orm import sessionmaker
 from app.oauth import create_access_token
+import sqlalchemy
 
 
 SQL_ALCHEMY_DATABSE_URL=f'postgresql://{setting.database_username}:{setting.database_password}@{setting.database_hostname}:{setting.database_port}/{setting.database_name}_test'
@@ -17,6 +18,8 @@ TestingSessionLocal=sessionmaker(autocommit=False,autoflush=False,bind=engine)
 
 @pytest.fixture()
 def session():
+    if not engine.dialect.has_schema(engine,f'{setting.database_name}_test'):
+        engine.execute(sqlalchemy.schema.CreateSchema(f'{setting.database_name}_test'))
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
     db= TestingSessionLocal()
