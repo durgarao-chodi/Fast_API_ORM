@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from app import models, schemas
+from app import models
 from app.main import app
 import pytest
 from app.database import Base,get_db
@@ -12,6 +12,7 @@ import sqlalchemy
 
 SQL_ALCHEMY_DATABSE_URL=f'postgresql://{setting.database_username}:{setting.database_password}@{setting.database_hostname}:{setting.database_port}/{setting.database_name}_test'
 
+
 print(SQL_ALCHEMY_DATABSE_URL)
 engine=create_engine(SQL_ALCHEMY_DATABSE_URL)
 
@@ -19,8 +20,8 @@ TestingSessionLocal=sessionmaker(autocommit=False,autoflush=False,bind=engine)
 
 @pytest.fixture()
 def session():
-    if not engine.dialect.has_schema(engine,f'{setting.database_name}_test'):
-        engine.execute(sqlalchemy.schema.CreateSchema(f'{setting.database_name}_test'))
+    # if not engine.dialect.has_schema(engine,f'{setting.database_name}_test'):
+    #     engine.execute(sqlalchemy.schema.CreateSchema(f'{setting.database_name}_test'))
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
     db= TestingSessionLocal()
