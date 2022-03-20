@@ -18,5 +18,5 @@ app.include_router(votes.router)
 #             return item
 @app.get("/")
 async def get_root():
-    return {"data":"success"}
+    return {"data":"CI CD successfully setup !!!"}
 
